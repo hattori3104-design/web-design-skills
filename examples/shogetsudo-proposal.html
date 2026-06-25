@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>デザイン方向性 ご提案｜テンプレート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600;700&family=Shippori+Mincho:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16191d;
+    --ink-soft:#41464d;
+    --ink-faint:#878d95;
+    --paper:#fbfaf7;
+    --paper-2:#f2efe9;
+    --line:#dcd8cf;
+    --line-strong:#b9b4a8;
+    --accent:#8a6d3b;          /* テンプレUIの差し色：金茶 */
+    --sample:#20406a;          /* 見本案件のメイン色：暖簾の藍 */
+    --note-bg:#fff7ed;
+    --note-line:#e8c9a0;
+    --mincho:"Zen Old Mincho",serif;
+    --gothic:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+    --body:"Noto Sans JP",sans-serif;
+    --mono:"Inter",sans-serif;
+    --maxw:840px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper-2);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.85;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:var(--maxw);
+    margin:0 auto;
+    background:var(--paper);
+    box-shadow:0 1px 0 rgba(0,0,0,.04), 0 22px 60px -28px rgba(0,0,0,.28);
+  }
+
+  /* ---- toolbar ---- */
+  .toolbar{
+    position:sticky;top:0;z-index:20;
+    max-width:var(--maxw);margin:0 auto;
+    display:flex;align-items:center;gap:14px;
+    padding:10px 40px;
+    background:rgba(251,250,247,.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+  }
+  .toolbar .brand{font-weight:600;letter-spacing:.04em;color:var(--ink);}
+  .toolbar .spacer{flex:1;}
+  .tbtn{
+    font-family:var(--mono);font-size:12.5px;
+    border:1px solid var(--line-strong);background:transparent;color:var(--ink-soft);
+    padding:5px 12px;border-radius:2px;cursor:pointer;transition:.18s;
+  }
+  .tbtn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .tbtn[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+  /* ---- cover ---- */
+  .cover{padding:96px 64px 72px;border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 26px;
+  }
+  .cover h1{
+    font-family:var(--mincho);font-weight:700;
+    font-size:clamp(30px,5vw,46px);line-height:1.3;letter-spacing:.01em;
+    margin:0 0 8px;color:var(--ink);
+  }
+  .cover .client{font-family:var(--mincho);font-size:20px;color:var(--ink-soft);margin:0 0 40px;}
+  .cover .meta{
+    display:flex;flex-wrap:wrap;gap:6px 34px;
+    font-family:var(--mono);font-size:13px;color:var(--ink-faint);
+    border-top:1px solid var(--line);padding-top:18px;
+  }
+  .cover .meta b{color:var(--ink-soft);font-weight:500;}
+
+
+  /* ---- section ---- */
+  .section{
+    display:grid;grid-template-columns:96px 1fr;gap:0 28px;
+    padding:54px 64px;border-bottom:1px solid var(--line);
+  }
+  .rail{position:relative;}
+  .rail .num{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.02em;}
+  .rail .layer{
+    margin-top:8px;display:inline-block;
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;font-weight:600;
+    padding:3px 7px;border-radius:2px;
+  }
+  .layer.why{background:#efe2df;color:#8a3325;}
+  .layer.how{background:#e3e7ec;color:#3c5a76;}
+  .layer.what{background:#e7e8e2;color:#5b6150;}
+  .layer.base{background:#eceae4;color:#6b6e66;}
+
+  .body h2{
+    font-family:var(--mincho);font-weight:600;font-size:24px;line-height:1.4;
+    margin:0 0 6px;color:var(--ink);letter-spacing:.01em;
+  }
+  .body .lead{font-size:14px;color:var(--ink-faint);margin:0 0 22px;line-height:1.7;}
+  .body p{margin:0 0 14px;}
+
+  .qtag{
+    font-family:var(--mono);font-size:11px;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:2px;padding:1px 6px;margin-left:2px;white-space:nowrap;
+  }
+
+  /* fill-in placeholders */
+  .fill{
+    background:repeating-linear-gradient(-45deg,#f6f1e6,#f6f1e6 6px,#f1ebde 6px,#f1ebde 12px);
+    border:1px dashed var(--line-strong);border-radius:2px;
+    padding:0 6px;color:var(--ink-soft);font-style:italic;
+  }
+  .ex{color:var(--ink-faint);font-size:13.5px;}
+
+  /* concept block */
+  .concept{
+    border:1px solid var(--line-strong);border-left:4px solid var(--sample);
+    background:#fff;padding:30px 32px;margin:6px 0 18px;border-radius:3px;
+  }
+  .concept .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--ink-faint);margin:0 0 12px;}
+  .concept .phrase{font-family:var(--mincho);font-weight:700;font-size:28px;line-height:1.5;color:var(--sample);margin:0 0 14px;}
+  .concept .persona{font-size:14px;color:var(--ink-soft);margin:0;}
+  .concept .persona b{color:var(--ink);}
+
+  /* tone scale */
+  .scale{display:flex;flex-direction:column;gap:14px;margin:6px 0 18px;}
+  .scale-row{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;gap:14px;font-size:13px;}
+  .scale-row .l{text-align:right;color:var(--ink-soft);}
+  .scale-row .r{text-align:left;color:var(--ink-soft);}
+  .track{position:relative;height:2px;background:var(--line-strong);border-radius:2px;}
+  .track .pip{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;
+    background:var(--sample);border:2px solid var(--paper);transform:translate(-50%,-50%);
+    box-shadow:0 0 0 1px var(--sample);}
+  .scale-tags{margin-top:4px;font-size:13.5px;}
+  .scale-tags .pos{color:var(--ink);}
+  .scale-tags .neg{color:var(--ink-faint);}
+
+  /* color swatches */
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0 14px;}
+  .sw{border:1px solid var(--line);border-radius:3px;overflow:hidden;background:#fff;}
+  .sw .chip{height:74px;}
+  .sw .info{padding:10px 11px;}
+  .sw .role{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 3px;}
+  .sw .hex{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin:0 0 6px;}
+  .sw .use{font-size:12px;color:var(--ink-soft);line-height:1.5;margin:0;}
+
+  /* font preview */
+  .fonts{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:3px;overflow:hidden;margin:6px 0 14px;}
+  .frow{display:grid;grid-template-columns:130px 1fr;gap:0;border-top:1px solid var(--line);}
+  .frow:first-child{border-top:0;}
+  .frow .flabel{background:var(--paper-2);padding:16px 14px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.06em;border-right:1px solid var(--line);}
+  .frow .fprev{padding:14px 18px;}
+  .frow .fprev .big{font-size:23px;line-height:1.4;color:var(--ink);margin:0 0 2px;}
+  .frow .fprev .name{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);}
+  .pf-zen{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:700;}
+  .pf-noto{font-family:"Noto Sans JP",sans-serif;font-weight:400;}
+  .pf-inter{font-family:"Inter",sans-serif;font-weight:500;}
+  .pf-ship{font-family:"Shippori Mincho",serif;font-weight:600;}
+  .pf-corm{font-family:"Cormorant Garamond",serif;font-weight:600;letter-spacing:.01em;}
+
+  /* reference cards */
+  .refs{display:flex;flex-direction:column;gap:10px;margin:6px 0 14px;}
+  .ref{display:grid;grid-template-columns:1fr;gap:4px;border:1px solid var(--line);border-radius:3px;padding:14px 16px;background:#fff;}
+  .ref .url{font-family:var(--mono);font-size:12.5px;color:var(--sample);word-break:break-all;}
+  .ref .take{font-size:14px;color:var(--ink);}
+  .ref .take b{font-weight:700;}
+  .ref .why{font-size:13px;color:var(--ink-faint);}
+  .ref.ng{border-color:#e6cfc9;background:#fdf6f4;}
+  .ref.ng .url{color:var(--accent);}
+
+  /* keep / change table */
+  .kc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:3px;overflow:hidden;margin:6px 0 14px;}
+  .kc .col{padding:16px 18px;}
+  .kc .col.keep{background:#f3f6f1;border-right:1px solid var(--line);}
+  .kc .col h4{margin:0 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;}
+  .kc .keep h4{color:#3f6b3a;}
+  .kc .change h4{color:var(--ink-soft);}
+  .kc ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);}
+  .kc li{margin-bottom:5px;}
+
+  /* steps */
+  .steps{counter-reset:s;list-style:none;margin:8px 0 0;padding:0;}
+  .steps li{position:relative;padding:0 0 16px 40px;}
+  .steps li::before{
+    counter-increment:s;content:counter(s);
+    position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;
+    background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .steps li:not(:last-child)::after{content:"";position:absolute;left:13px;top:26px;bottom:4px;width:1px;background:var(--line-strong);}
+
+  /* maker notes */
+  .note{
+    background:var(--note-bg);border:1px solid var(--note-line);border-radius:3px;
+    padding:11px 14px;margin:14px 0 0;font-size:13px;color:#7a5326;line-height:1.65;
+  }
+  .note .tag{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:.1em;color:#b06a1f;margin-right:6px;text-transform:uppercase;}
+  body.hide-notes .note{display:none;}
+
+  .foot{padding:38px 64px 56px;color:var(--ink-faint);font-family:var(--mono);font-size:12px;letter-spacing:.04em;}
+
+  @media (max-width:680px){
+    .toolbar{padding:10px 18px;flex-wrap:wrap;}
+    .cover,.section,.foot{padding-left:22px;padding-right:22px;}
+    .section{grid-template-columns:1fr;gap:14px;}
+    .rail{display:flex;gap:10px;align-items:center;}
+    .rail .layer{margin-top:0;}
+    .swatches{grid-template-columns:repeat(2,1fr);}
+    .scale-row{grid-template-columns:84px 1fr 84px;gap:8px;font-size:12px;}
+    .kc,.frow{grid-template-columns:1fr;}
+    .frow .flabel{border-right:0;border-bottom:1px solid var(--line);}
+    .kc .col.keep{border-right:0;border-bottom:1px solid var(--line);}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
+
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none;}
+    .sheet{box-shadow:none;max-width:none;}
+    .section{break-inside:avoid;}
+    body.hide-notes .note{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="brand">Sakumadesign</span>
+  <span style="color:var(--ink-faint)">デザイン方向性 提案テンプレート</span>
+  <span class="spacer"></span>
+  <button class="tbtn" id="noteToggle" aria-pressed="true">制作者メモ：表示中</button>
+  <button class="tbtn" onclick="window.print()">PDFで保存 / 印刷</button>
+</div>
+
+<div class="sheet">
+
+  <!-- COVER -->
+  <header class="cover">
+    <p class="eyebrow">Design Direction</p>
+    <h1>Webサイト<br>デザイン方向性のご提案</h1>
+    <p class="client">有限会社 松月堂 様</p>
+    <div class="meta">
+      <span><b>提案日</b>　2026.06.25</span>
+      <span><b>ご担当</b>　Sakumadesign ／ 服部</span>
+      <span><b>対象</b>　和菓子店サイト リニューアル＋オンライン販売</span>
+    </div>
+  </header>
+
+  <!-- 0 GOAL -->
+  <section class="section">
+    <div class="rail"><div class="num">00</div><span class="layer base">GOAL</span></div>
+    <div class="body">
+      <h2>このサイトで達成したいこと</h2>
+      <p class="lead">提案全体の「判断のものさし」。以降のデザインは好き嫌いでなく、この目的に効くかで評価します。<span class="qtag">Q9–11</span></p>
+      <p><b>一番の目的：</b>ギフト・お取り寄せの<strong>新規客を増やす</strong>。若い世代にも知ってもらう</p>
+      <p><b>成果の測り方：</b>オンライン注文数 ／ 問い合わせ件数</p>
+      <p><b>今の状況：</b>常連の店頭購入が中心。Web経由の注文はほぼ無い</p>
+    </div>
+  </section>
+
+  <!-- 1 TARGET -->
+  <section class="section">
+    <div class="rail"><div class="num">01</div><span class="layer base">WHO</span></div>
+    <div class="body">
+      <h2>ターゲットと、解消する不安</h2>
+      <p class="lead">デザインは「誰の・どの不安を消すか」で決まります。<span class="qtag">Q16–20</span></p>
+      <p><b>主なお客様：</b>地元の年配客。近年は<strong>贈答用の30〜40代</strong>が増加</p>
+      <p><b>選ぶときの不安：</b>日持ちするか／<strong>上品だと思ってもらえるか</strong>／ちゃんとした店か</p>
+      <p><b>お客様がなりたい姿：</b>贈る人が<strong>「センスが良く、礼儀をわきまえた人」</strong>と思われたい</p>
+      <div class="note"><span class="tag">狙い</span>BtoCの核は「自己一致性」。お客様自身がなりたい姿（品のある贈り手）に、デザインの品格を寄せる。商品より“贈る体験の上質さ”を見せると刺さる。</div>
+    </div>
+  </section>
+
+  <!-- 2 CONCEPT -->
+  <section class="section">
+    <div class="rail"><div class="num">02</div><span class="layer why">WHY</span></div>
+    <div class="body">
+      <h2>デザインコンセプト（案）</h2>
+      <p class="lead">全体を貫く一言。まず方向を選んでいただくため、3案ご用意しました。この合意が提案の核です。</p>
+      <div class="concept">
+        <p class="kicker">CONCEPT — A案</p>
+        <p class="phrase">季節を、贈る。</p>
+        <p class="persona"><b>狙い：</b>季節の上生菓子という本質を、贈答の文脈に。「上品な贈り手でありたい」という気持ちに最も直結する。</p>
+      </div>
+      <div class="concept">
+        <p class="kicker">CONCEPT — B案</p>
+        <p class="phrase">一日一菓、九十年。</p>
+        <p class="persona"><b>狙い：</b>「その日に作る数を決め、その日のうちに」という製法の誠実さを核に。信頼・実直さで“ちゃんとした店”の不安を消す。</p>
+      </div>
+      <div class="concept">
+        <p class="kicker">CONCEPT — C案</p>
+        <p class="phrase">静けさを、品とする。</p>
+        <p class="persona"><b>狙い：</b>「通販っぽさを消したい」という要望を正面に。静けさ＝競合との見た目の差別化に振る。</p>
+      </div>
+      <p><b>ブランドの人格：</b>物腰やわらかい老舗の女将（主）＋ 寡黙な職人気質（副）</p>
+      <div class="note"><span class="tag">狙い</span><b>WHY</b>を最初に置く（ゴールデンサークル）。A案＝自己一致性、B案＝信頼、C案＝差別化と狙いが分かれる。どれを軸にするかで以降の色・写真が変わる。</div>
+    </div>
+  </section>
+
+  <!-- 3 TONE -->
+  <section class="section">
+    <div class="rail"><div class="num">03</div><span class="layer how">HOW</span></div>
+    <div class="body">
+      <h2>トーン&マナー</h2>
+      <p class="lead">トーン診断（SD法）のご回答を、位置として可視化しました。<span class="qtag">トーン診断 / Q32</span></p>
+      <div class="scale">
+        <div class="scale-row"><span class="l">堅実・信頼</span><div class="track"><span class="pip" style="left:25%"></span></div><span class="r">革新・先進</span></div>
+        <div class="scale-row"><span class="l">上品・静か</span><div class="track"><span class="pip" style="left:25%"></span></div><span class="r">親しみ・元気</span></div>
+        <div class="scale-row"><span class="l">余白多め</span><div class="track"><span class="pip" style="left:25%"></span></div><span class="r">情報量多め</span></div>
+        <div class="scale-row"><span class="l">無機質・洗練</span><div class="track"><span class="pip" style="left:75%"></span></div><span class="r">手触り・温かい</span></div>
+      </div>
+      <p class="scale-tags"><span class="pos"><b>目指す：</b>上品・静か・余白を効かせた・あたたかい</span>　／　<span class="neg">目指さない：派手・にぎやか・安売り感</span></p>
+      <div class="note"><span class="tag">狙い</span>「堅実×上品×余白×手触り」に集約。和モダンの方向が数値で裏付けられた。写真と余白で“静かな品”を作る。</div>
+    </div>
+  </section>
+
+  <!-- 4 COLOR -->
+  <section class="section">
+    <div class="rail"><div class="num">04</div><span class="layer what">WHAT</span></div>
+    <div class="body">
+      <h2>配色（候補）</h2>
+      <p class="lead">色だけでなく「意味」と「使う場面」をセットで。下記は方向性を示す候補で、実画面で最終調整します。<span class="qtag">Q33 / Q35</span></p>
+      <div class="swatches">
+        <div class="sw"><div class="chip" style="background:#20406a"></div><div class="info"><p class="role">Main</p><p class="hex">#20406A</p><p class="use">暖簾の藍。信頼・伝統。見出し／基調</p></div></div>
+        <div class="sw"><div class="chip" style="background:#a8824c"></div><div class="info"><p class="role">Sub</p><p class="hex">#A8824C</p><p class="use">金茶。季節・上質。区切り／装飾</p></div></div>
+        <div class="sw"><div class="chip" style="background:#f6f1e7;border-bottom:1px solid var(--line)"></div><div class="info"><p class="role">Base</p><p class="hex">#F6F1E7</p><p class="use">生成り。余白・清潔。背景</p></div></div>
+        <div class="sw"><div class="chip" style="background:#9e3d3d"></div><div class="info"><p class="role">Accent</p><p class="hex">#9E3D3D</p><p class="use">紅。季節の差し色。ごく限定的に</p></div></div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>「守りたい暖簾の藍」を主役に据え、派手色は避ける要望に沿う。藍＋生成りで“静かな品”、金茶で上質感を一滴。<b>hexは候補</b>のため確定時に微調整。</div>
+    </div>
+  </section>
+
+  <!-- 5 FONT -->
+  <section class="section">
+    <div class="rail"><div class="num">05</div><span class="layer what">WHAT</span></div>
+    <div class="body">
+      <h2>フォント（候補）</h2>
+      <p class="lead">「明朝寄り（伝統的・上品）」のご希望に沿った候補です。<span class="qtag">Q34</span></p>
+      <div class="fonts">
+        <div class="frow"><div class="flabel">見出し / 日本語</div><div class="fprev"><p class="big pf-ship">季節を、菓子で。</p><p class="name">Shippori Mincho ・ 伝統的で品がある</p></div></div>
+        <div class="frow"><div class="flabel">本文 / 日本語</div><div class="fprev"><p class="big pf-noto">その日の分だけ、手間を惜しまずお作りしています。</p><p class="name">Noto Sans JP ・ 読みやすく、ECでも実用的</p></div></div>
+        <div class="frow"><div class="flabel">欧文・店名</div><div class="fprev"><p class="big pf-corm">Shogetsudo since 1936</p><p class="name">Cormorant Garamond ・ 上品なセリフ</p></div></div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>見出しは明朝で“品”を、本文はあえてゴシック（Noto Sans JP）で可読性を確保——お取り寄せの注文画面まで読みやすく。コンセプトの「上品さ」と実用を両立。<b>確定はご相談で。</b></div>
+    </div>
+  </section>
+
+  <!-- 6 REFERENCE -->
+  <section class="section">
+    <div class="rail"><div class="num">06</div><span class="layer how">HOW</span></div>
+    <div class="body">
+      <h2>参考サイト</h2>
+      <p class="lead">「どこを・なぜ」を共有します。丸ごと真似るのではなく“要素を抽出”する前提です。<span class="qtag">Q24–27</span></p>
+      <div class="refs">
+        <div class="ref">
+          <span class="url"><span class="fill">参考①：老舗和菓子の余白が効いたサイト（具体URLは要ご確認）</span></span>
+          <span class="take"><b>取り入れ：</b>余白を大きく取った、静かな商品の見せ方</span>
+          <span class="why">理由：コンセプトの「静けさ・品」に合う</span>
+        </div>
+        <div class="ref">
+          <span class="url"><span class="fill">参考②：写真が美しい菓子ブランド（具体URLは要ご確認）</span></span>
+          <span class="take"><b>取り入れ：</b>季節感を伝える写真のトーン</span>
+          <span class="why">理由：目的（贈答・新規）に効く“季節を贈る”の表現</span>
+        </div>
+        <div class="ref ng">
+          <span class="url">こうはしない例：安売り感のある、情報過多な通販サイト</span>
+          <span class="take"><b>避ける：</b>多色・詰め込み・セール訴求</span>
+          <span class="why">理由：上品さが消え、贈り物に向かない</span>
+        </div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>参考サイト＝ゴールイメージの共有。具体URLが未確定のため、ここは打ち合わせで確定する。</div>
+    </div>
+  </section>
+
+  <!-- 7 KEEP / CHANGE -->
+  <section class="section">
+    <div class="rail"><div class="num">07</div><span class="layer base">RENEWAL</span></div>
+    <div class="body">
+      <h2>変えること・変えないこと</h2>
+      <p class="lead">お客様の“目印”を勝手に消さないための線引きです。リニューアルで最も大切な合意点。<span class="qtag">Q12 / Q36</span></p>
+      <div class="kc">
+        <div class="col keep">
+          <h4>● 変えない（コア）</h4>
+          <ul>
+            <li>家紋風のロゴ</li>
+            <li>暖簾の藍色</li>
+            <li>「一日一菓」という言葉</li>
+          </ul>
+        </div>
+        <div class="col change">
+          <h4>○ 変える</h4>
+          <ul>
+            <li>暗く古い商品写真</li>
+            <li>スマホでの見やすさ</li>
+            <li>通販の見せ方（“通販っぽさ”を消す）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>90年の常連が認識している“藍・家紋・一日一菓”を残し、刷新は写真と使い勝手に絞る。慣れ親しんだ目印を検証なく消すのは、リブランディング最多の失敗（パッケージ刷新で売上を落とした例も）。</div>
+    </div>
+  </section>
+
+  <!-- 8 NEXT -->
+  <section class="section">
+    <div class="rail"><div class="num">08</div><span class="layer base">NEXT</span></div>
+    <div class="body">
+      <h2>次のステップ</h2>
+      <ol class="steps">
+        <li>コンセプト3案からの方向決め・すり合わせ <span class="qtag">Q37–38</span></li>
+        <li>合意いただいた方向でトップページのデザイン案を作成</li>
+        <li>歳暮商戦（11月）前の公開に向けスケジュール調整 <span class="qtag">Q41</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="foot">ご提案：Sakumadesign　／　本書はデザイン方向性の合意を目的とした提案書です。</div>
+
+</div>
+
+<script>
+  (function(){
+    var btn=document.getElementById('noteToggle');
+    btn.addEventListener('click',function(){
+      var hidden=document.body.classList.toggle('hide-notes');
+      btn.setAttribute('aria-pressed', String(!hidden));
+      btn.textContent=hidden?'制作者メモ：非表示':'制作者メモ：表示中';
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>デザイン方向性 ご提案｜テンプレート</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16191d;
+    --ink-soft:#41464d;
+    --ink-faint:#878d95;
+    --paper:#fbfaf7;
+    --paper-2:#f2efe9;
+    --line:#dcd8cf;
+    --line-strong:#b9b4a8;
+    --accent:#9a3b2e;          /* テンプレUIの差し色：抑えた朱 */
+    --sample:#1b3a5b;          /* 見本案件のメイン色 */
+    --note-bg:#fff7ed;
+    --note-line:#e8c9a0;
+    --mincho:"Zen Old Mincho",serif;
+    --gothic:"Zen Kaku Gothic New","Noto Sans JP",sans-serif;
+    --body:"Noto Sans JP",sans-serif;
+    --mono:"Inter",sans-serif;
+    --maxw:840px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper-2);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.85;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{
+    max-width:var(--maxw);
+    margin:0 auto;
+    background:var(--paper);
+    box-shadow:0 1px 0 rgba(0,0,0,.04), 0 22px 60px -28px rgba(0,0,0,.28);
+  }
+
+  /* ---- toolbar ---- */
+  .toolbar{
+    position:sticky;top:0;z-index:20;
+    max-width:var(--maxw);margin:0 auto;
+    display:flex;align-items:center;gap:14px;
+    padding:10px 40px;
+    background:rgba(251,250,247,.86);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+  }
+  .toolbar .brand{font-weight:600;letter-spacing:.04em;color:var(--ink);}
+  .toolbar .spacer{flex:1;}
+  .tbtn{
+    font-family:var(--mono);font-size:12.5px;
+    border:1px solid var(--line-strong);background:transparent;color:var(--ink-soft);
+    padding:5px 12px;border-radius:2px;cursor:pointer;transition:.18s;
+  }
+  .tbtn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+  .tbtn[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent);}
+
+  /* ---- cover ---- */
+  .cover{padding:96px 64px 72px;border-bottom:1px solid var(--line);}
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--accent);font-weight:600;margin:0 0 26px;
+  }
+  .cover h1{
+    font-family:var(--mincho);font-weight:700;
+    font-size:clamp(30px,5vw,46px);line-height:1.3;letter-spacing:.01em;
+    margin:0 0 8px;color:var(--ink);
+  }
+  .cover .client{font-family:var(--mincho);font-size:20px;color:var(--ink-soft);margin:0 0 40px;}
+  .cover .meta{
+    display:flex;flex-wrap:wrap;gap:6px 34px;
+    font-family:var(--mono);font-size:13px;color:var(--ink-faint);
+    border-top:1px solid var(--line);padding-top:18px;
+  }
+  .cover .meta b{color:var(--ink-soft);font-weight:500;}
+
+  .sample-banner{
+    background:var(--sample);color:#eaf1f8;
+    font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;
+    padding:9px 64px;display:flex;gap:8px;align-items:center;
+  }
+  .sample-banner .dot{width:7px;height:7px;border-radius:50%;background:#7fb0db;flex:none;}
+
+  /* ---- section ---- */
+  .section{
+    display:grid;grid-template-columns:96px 1fr;gap:0 28px;
+    padding:54px 64px;border-bottom:1px solid var(--line);
+  }
+  .rail{position:relative;}
+  .rail .num{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--ink);letter-spacing:.02em;}
+  .rail .layer{
+    margin-top:8px;display:inline-block;
+    font-family:var(--mono);font-size:10px;letter-spacing:.18em;font-weight:600;
+    padding:3px 7px;border-radius:2px;
+  }
+  .layer.why{background:#efe2df;color:#8a3325;}
+  .layer.how{background:#e3e7ec;color:#3c5a76;}
+  .layer.what{background:#e7e8e2;color:#5b6150;}
+  .layer.base{background:#eceae4;color:#6b6e66;}
+
+  .body h2{
+    font-family:var(--mincho);font-weight:600;font-size:24px;line-height:1.4;
+    margin:0 0 6px;color:var(--ink);letter-spacing:.01em;
+  }
+  .body .lead{font-size:14px;color:var(--ink-faint);margin:0 0 22px;line-height:1.7;}
+  .body p{margin:0 0 14px;}
+
+  .qtag{
+    font-family:var(--mono);font-size:11px;color:var(--ink-faint);
+    border:1px solid var(--line);border-radius:2px;padding:1px 6px;margin-left:2px;white-space:nowrap;
+  }
+
+  /* fill-in placeholders */
+  .fill{
+    background:repeating-linear-gradient(-45deg,#f6f1e6,#f6f1e6 6px,#f1ebde 6px,#f1ebde 12px);
+    border:1px dashed var(--line-strong);border-radius:2px;
+    padding:0 6px;color:var(--ink-soft);font-style:italic;
+  }
+  .ex{color:var(--ink-faint);font-size:13.5px;}
+
+  /* concept block */
+  .concept{
+    border:1px solid var(--line-strong);border-left:4px solid var(--sample);
+    background:#fff;padding:30px 32px;margin:6px 0 18px;border-radius:3px;
+  }
+  .concept .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--ink-faint);margin:0 0 12px;}
+  .concept .phrase{font-family:var(--mincho);font-weight:700;font-size:28px;line-height:1.5;color:var(--sample);margin:0 0 14px;}
+  .concept .persona{font-size:14px;color:var(--ink-soft);margin:0;}
+  .concept .persona b{color:var(--ink);}
+
+  /* tone scale */
+  .scale{display:flex;flex-direction:column;gap:14px;margin:6px 0 18px;}
+  .scale-row{display:grid;grid-template-columns:120px 1fr 120px;align-items:center;gap:14px;font-size:13px;}
+  .scale-row .l{text-align:right;color:var(--ink-soft);}
+  .scale-row .r{text-align:left;color:var(--ink-soft);}
+  .track{position:relative;height:2px;background:var(--line-strong);border-radius:2px;}
+  .track .pip{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;
+    background:var(--sample);border:2px solid var(--paper);transform:translate(-50%,-50%);
+    box-shadow:0 0 0 1px var(--sample);}
+  .scale-tags{margin-top:4px;font-size:13.5px;}
+  .scale-tags .pos{color:var(--ink);}
+  .scale-tags .neg{color:var(--ink-faint);}
+
+  /* color swatches */
+  .swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0 14px;}
+  .sw{border:1px solid var(--line);border-radius:3px;overflow:hidden;background:#fff;}
+  .sw .chip{height:74px;}
+  .sw .info{padding:10px 11px;}
+  .sw .role{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 3px;}
+  .sw .hex{font-family:var(--mono);font-size:12.5px;color:var(--ink);margin:0 0 6px;}
+  .sw .use{font-size:12px;color:var(--ink-soft);line-height:1.5;margin:0;}
+
+  /* font preview */
+  .fonts{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:3px;overflow:hidden;margin:6px 0 14px;}
+  .frow{display:grid;grid-template-columns:130px 1fr;gap:0;border-top:1px solid var(--line);}
+  .frow:first-child{border-top:0;}
+  .frow .flabel{background:var(--paper-2);padding:16px 14px;font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.06em;border-right:1px solid var(--line);}
+  .frow .fprev{padding:14px 18px;}
+  .frow .fprev .big{font-size:23px;line-height:1.4;color:var(--ink);margin:0 0 2px;}
+  .frow .fprev .name{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);}
+  .pf-zen{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:700;}
+  .pf-noto{font-family:"Noto Sans JP",sans-serif;font-weight:400;}
+  .pf-inter{font-family:"Inter",sans-serif;font-weight:500;}
+
+  /* reference cards */
+  .refs{display:flex;flex-direction:column;gap:10px;margin:6px 0 14px;}
+  .ref{display:grid;grid-template-columns:1fr;gap:4px;border:1px solid var(--line);border-radius:3px;padding:14px 16px;background:#fff;}
+  .ref .url{font-family:var(--mono);font-size:12.5px;color:var(--sample);word-break:break-all;}
+  .ref .take{font-size:14px;color:var(--ink);}
+  .ref .take b{font-weight:700;}
+  .ref .why{font-size:13px;color:var(--ink-faint);}
+  .ref.ng{border-color:#e6cfc9;background:#fdf6f4;}
+  .ref.ng .url{color:var(--accent);}
+
+  /* keep / change table */
+  .kc{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:3px;overflow:hidden;margin:6px 0 14px;}
+  .kc .col{padding:16px 18px;}
+  .kc .col.keep{background:#f3f6f1;border-right:1px solid var(--line);}
+  .kc .col h4{margin:0 0 8px;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;}
+  .kc .keep h4{color:#3f6b3a;}
+  .kc .change h4{color:var(--ink-soft);}
+  .kc ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-soft);}
+  .kc li{margin-bottom:5px;}
+
+  /* steps */
+  .steps{counter-reset:s;list-style:none;margin:8px 0 0;padding:0;}
+  .steps li{position:relative;padding:0 0 16px 40px;}
+  .steps li::before{
+    counter-increment:s;content:counter(s);
+    position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;
+    background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:12px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .steps li:not(:last-child)::after{content:"";position:absolute;left:13px;top:26px;bottom:4px;width:1px;background:var(--line-strong);}
+
+  /* maker notes */
+  .note{
+    background:var(--note-bg);border:1px solid var(--note-line);border-radius:3px;
+    padding:11px 14px;margin:14px 0 0;font-size:13px;color:#7a5326;line-height:1.65;
+  }
+  .note .tag{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:.1em;color:#b06a1f;margin-right:6px;text-transform:uppercase;}
+  body.hide-notes .note{display:none;}
+
+  .foot{padding:38px 64px 56px;color:var(--ink-faint);font-family:var(--mono);font-size:12px;letter-spacing:.04em;}
+
+  @media (max-width:680px){
+    .toolbar{padding:10px 18px;flex-wrap:wrap;}
+    .cover,.section,.foot{padding-left:22px;padding-right:22px;}
+    .sample-banner{padding-left:22px;padding-right:22px;}
+    .section{grid-template-columns:1fr;gap:14px;}
+    .rail{display:flex;gap:10px;align-items:center;}
+    .rail .layer{margin-top:0;}
+    .swatches{grid-template-columns:repeat(2,1fr);}
+    .scale-row{grid-template-columns:84px 1fr 84px;gap:8px;font-size:12px;}
+    .kc,.frow{grid-template-columns:1fr;}
+    .frow .flabel{border-right:0;border-bottom:1px solid var(--line);}
+    .kc .col.keep{border-right:0;border-bottom:1px solid var(--line);}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
+
+  @media print{
+    body{background:#fff;}
+    .toolbar{display:none;}
+    .sheet{box-shadow:none;max-width:none;}
+    .section{break-inside:avoid;}
+    body.hide-notes .note{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="brand">Sakumadesign</span>
+  <span style="color:var(--ink-faint)">デザイン方向性 提案テンプレート</span>
+  <span class="spacer"></span>
+  <button class="tbtn" id="noteToggle" aria-pressed="true">制作者メモ：表示中</button>
+  <button class="tbtn" onclick="window.print()">PDFで保存 / 印刷</button>
+</div>
+
+<div class="sheet">
+
+  <div class="sample-banner">
+    <span class="dot"></span>
+    これは記入例（架空案件：光精密工業／BtoB部品メーカーのサイトリニューアル）です。実案件では各値を差し替えてご利用ください。
+  </div>
+
+  <!-- COVER -->
+  <header class="cover">
+    <p class="eyebrow">Design Direction</p>
+    <h1>Webサイト<br>デザイン方向性のご提案</h1>
+    <p class="client">光精密工業 株式会社 様</p>
+    <div class="meta">
+      <span><b>提案日</b>　2026.06.25</span>
+      <span><b>ご担当</b>　Sakumadesign ／ 服部</span>
+      <span><b>対象</b>　コーポレートサイト リニューアル</span>
+    </div>
+  </header>
+
+  <!-- 0 GOAL -->
+  <section class="section">
+    <div class="rail"><div class="num">00</div><span class="layer base">GOAL</span></div>
+    <div class="body">
+      <h2>このサイトで達成したいこと</h2>
+      <p class="lead">提案全体の「判断のものさし」。以降のデザインは好き嫌いでなく、この目的に効くかで評価します。<span class="qtag">Q9–11</span></p>
+      <p><b>一番の目的：</b>新規取引先からの問い合わせを<strong>月8件</strong>に増やす</p>
+      <p><b>成果の測り方：</b>問い合わせフォーム送信数 ／ 図面相談の件数</p>
+      <p><b>今の状況：</b>月2〜3件・主に既存客の紹介経由。新規の指名が弱い</p>
+    </div>
+  </section>
+
+  <!-- 1 TARGET -->
+  <section class="section">
+    <div class="rail"><div class="num">01</div><span class="layer base">WHO</span></div>
+    <div class="body">
+      <h2>ターゲットと、解消する不安</h2>
+      <p class="lead">デザインは「誰の・どの不安を消すか」で決まります。<span class="qtag">Q13–16</span></p>
+      <p><b>主なお客様：</b>中堅メーカーの調達・設計担当（BtoB）。複数の決裁者が関わる</p>
+      <p><b>選ぶときの最大の不安：</b><strong>「発注先選びで失敗したくない」</strong>──品質・納期が読めない、技術力が外から分かりにくい</p>
+      <div class="note"><span class="tag">狙い</span>BtoBの不安の核は「選定ミス」。実績と技術力を“証拠”で見せるトーンが効く。感性訴求より合理性・信頼の可視化を優先する。</div>
+    </div>
+  </section>
+
+  <!-- 2 CONCEPT -->
+  <section class="section">
+    <div class="rail"><div class="num">02</div><span class="layer why">WHY</span></div>
+    <div class="body">
+      <h2>デザインコンセプト</h2>
+      <p class="lead">全体を貫く一言。これが決まれば色・書体・写真は自動的に絞れます。この提案の核です。</p>
+      <div class="concept">
+        <p class="kicker">CONCEPT</p>
+        <p class="phrase">見えない精度を、<br>見える信頼に。</p>
+        <p class="persona"><b>ブランドの人格：</b>主＝寡黙だが確かな「熟練の職人」（70%）／副＝先を読む「実直な技術者」（30%）</p>
+      </div>
+      <div class="note"><span class="tag">狙い</span><b>WHY</b>を最初に置く（ゴールデンサークル：WHY→HOW→WHAT）。ここで合意できれば、以降は「コンセプトに合うか」で各論を裁ける。決裁者の終盤ちゃぶ台返しを防ぐ最大の関所。</div>
+    </div>
+  </section>
+
+  <!-- 3 TONE -->
+  <section class="section">
+    <div class="rail"><div class="num">03</div><span class="layer how">HOW</span></div>
+    <div class="body">
+      <h2>トーン&マナー</h2>
+      <p class="lead">言葉で方向を固定し、「なんとなく」を残しません。<span class="qtag">Q27 / Q22</span></p>
+      <div class="scale">
+        <div class="scale-row"><span class="l">堅実・信頼</span><div class="track"><span class="pip" style="left:18%"></span></div><span class="r">革新・先進</span></div>
+        <div class="scale-row"><span class="l">上品・静か</span><div class="track"><span class="pip" style="left:32%"></span></div><span class="r">親しみ・元気</span></div>
+        <div class="scale-row"><span class="l">余白多め</span><div class="track"><span class="pip" style="left:30%"></span></div><span class="r">情報量多め</span></div>
+        <div class="scale-row"><span class="l">無機質・洗練</span><div class="track"><span class="pip" style="left:55%"></span></div><span class="r">手触り・温かい</span></div>
+      </div>
+      <p class="scale-tags"><span class="pos"><b>目指す：</b>誠実・専門的・堅牢</span>　／　<span class="neg">目指さない：派手・軽い・冷たすぎる</span></p>
+      <div class="note"><span class="tag">狙い</span>形容詞で合意しておくと、色・書体・写真の判断が一気にブレなくなる。○の位置は対話で動かす。</div>
+    </div>
+  </section>
+
+  <!-- 4 COLOR -->
+  <section class="section">
+    <div class="rail"><div class="num">04</div><span class="layer what">WHAT</span></div>
+    <div class="body">
+      <h2>配色</h2>
+      <p class="lead">色だけでなく「色の意味」と「使う場面」をセットで。なぜこの色かを言語化します。<span class="qtag">Q28–29</span></p>
+      <div class="swatches">
+        <div class="sw"><div class="chip" style="background:#1b3a5b"></div><div class="info"><p class="role">Main</p><p class="hex">#1B3A5B</p><p class="use">信頼・堅牢。見出し／ヘッダー</p></div></div>
+        <div class="sw"><div class="chip" style="background:#c8a45c"></div><div class="info"><p class="role">Sub</p><p class="hex">#C8A45C</p><p class="use">真鍮の素材感。区切り／装飾</p></div></div>
+        <div class="sw"><div class="chip" style="background:#f7f6f3;border-bottom:1px solid var(--line)"></div><div class="info"><p class="role">Base</p><p class="hex">#F7F6F3</p><p class="use">清潔・余白。背景</p></div></div>
+        <div class="sw"><div class="chip" style="background:#d9472b"></div><div class="info"><p class="role">Accent</p><p class="hex">#D9472B</p><p class="use">行動喚起。CTAのみ限定使用</p></div></div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>「青が好きだから青」ではなく「信頼を示すから紺、素材を想起させるから真鍮」と説明できる状態に。</div>
+    </div>
+  </section>
+
+  <!-- 5 FONT -->
+  <section class="section">
+    <div class="rail"><div class="num">05</div><span class="layer what">WHAT</span></div>
+    <div class="body">
+      <h2>フォント</h2>
+      <p class="lead">書体は声のトーン。印象と用途を紐付けます。</p>
+      <div class="fonts">
+        <div class="frow"><div class="flabel">見出し / 日本語</div><div class="fprev"><p class="big pf-zen">確かな技術で、応える。</p><p class="name">Zen Kaku Gothic New ・ 明快で誠実</p></div></div>
+        <div class="frow"><div class="flabel">本文 / 日本語</div><div class="fprev"><p class="big pf-noto">図面のご相談から、量産まで一貫対応します。</p><p class="name">Noto Sans JP ・ 素直で読みやすい</p></div></div>
+        <div class="frow"><div class="flabel">欧文・数字</div><div class="fprev"><p class="big pf-inter">Precision 0.001mm</p><p class="name">Inter ・ 中立で洗練</p></div></div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>明朝でなくゴシックを選んだ理由＝「現代的な明快さ」がコンセプトの“確かさ”に合うため。選定理由を必ずコンセプトに接続する。</div>
+    </div>
+  </section>
+
+  <!-- 6 REFERENCE -->
+  <section class="section">
+    <div class="rail"><div class="num">06</div><span class="layer how">HOW</span></div>
+    <div class="body">
+      <h2>参考サイト</h2>
+      <p class="lead">URLの羅列はしません。「どこを・なぜ」を書き、丸ごと真似るのではなく“要素を抽出”する前提を共有します。<span class="qtag">Q20–22</span></p>
+      <div class="refs">
+        <div class="ref">
+          <span class="url">https://example-maker-a.co.jp</span>
+          <span class="take"><b>取り入れ：</b>余白を効かせた製品写真の見せ方</span>
+          <span class="why">理由：コンセプトの「静かな確かさ」に合う</span>
+        </div>
+        <div class="ref">
+          <span class="url">https://example-maker-b.co.jp</span>
+          <span class="take"><b>取り入れ：</b>「技術力を数値で示す」セクション構成</span>
+          <span class="why">理由：目的（新規からの信頼獲得）に直接効く</span>
+        </div>
+        <div class="ref ng">
+          <span class="url">こうはしない例：情報を詰め込んだ多色のトップ</span>
+          <span class="take"><b>避ける：</b>にぎやか・多色・スライドショー多用</span>
+          <span class="why">理由：堅実さが伝わらず、かえって不安を与える</span>
+        </div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>参考サイト＝ゴールイメージの共有ツール。「この通り作る」という誤解と、模倣による独自性喪失を同時に防ぐ。</div>
+    </div>
+  </section>
+
+  <!-- 7 KEEP / CHANGE -->
+  <section class="section">
+    <div class="rail"><div class="num">07</div><span class="layer base">RENEWAL</span></div>
+    <div class="body">
+      <h2>変えること・変えないこと</h2>
+      <p class="lead">既存サイト・既存ブランドがある場合のみ。お客様の“目印”を勝手に消さないための線引きです。<span class="qtag">Q12 / Q29</span></p>
+      <div class="kc">
+        <div class="col keep">
+          <h4>● 変えない（コア）</h4>
+          <ul>
+            <li>社名ロゴと「光（こう）」の字</li>
+            <li>長く使ってきた紺色</li>
+            <li>「図面1枚から」というキャッチ</li>
+          </ul>
+        </div>
+        <div class="col change">
+          <h4>○ 変える</h4>
+          <ul>
+            <li>古いレイアウト・写真</li>
+            <li>スマホ表示・読みやすさ</li>
+            <li>技術力の見せ方（数値化）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note"><span class="tag">狙い</span>リブランディング最多の失敗は、慣れ親しんだ目印を検証なしに消すこと（あるブランドはパッケージ刷新後2か月で売上を大きく落とした例も）。「残す／変える」を先に合意する。</div>
+    </div>
+  </section>
+
+  <!-- 8 NEXT -->
+  <section class="section">
+    <div class="rail"><div class="num">08</div><span class="layer base">NEXT</span></div>
+    <div class="body">
+      <h2>次のステップ</h2>
+      <ol class="steps">
+        <li>本提案の方向性についてご確認・すり合わせ</li>
+        <li>合意いただいた方向でトップページのデザイン案を作成</li>
+        <li>確認フローに沿ってレビュー・調整 <span class="qtag">Q30–31</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="foot">ご提案：Sakumadesign　／　本書はデザイン方向性の合意を目的とした提案書です。</div>
+
+</div>
+
+<script>
+  (function(){
+    var btn=document.getElementById('noteToggle');
+    btn.addEventListener('click',function(){
+      var hidden=document.body.classList.toggle('hide-notes');
+      btn.setAttribute('aria-pressed', String(!hidden));
+      btn.textContent=hidden?'制作者メモ：非表示':'制作者メモ：表示中';
+    });
+  })();
+</script>
+</body>
+</html>

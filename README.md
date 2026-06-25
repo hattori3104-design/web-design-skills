@@ -5,25 +5,34 @@ Claude（Cowork）で使えるウェブ制作スキル集。
 
 ---
 
-## 収録スキル（3本）
+## 収録スキル（5本）
 
 | スキル | 役割 | 主な出力物 |
 |--------|------|-----------|
+| [`branding-strategy`](./Branding%20knowledge/) | ブランド方向性・コア価値・VI・組織浸透 | ブランド戦略骨子・パーパス・VI方針 |
 | [`web-strategy`](./web-strategy/) | Web戦略の立案・サイトマップ設計 | 戦略設計書・サイトマップ・ファネル設計 |
-| [`web-proposal`](./web-proposal/) | 提案書の組み立て・ファイル生成 | .docx / .pptx / .md |
 | [`wireframe`](./wireframe/) | ワイヤーフレーム・Figma Makeプロンプト生成 | HTMLワイヤー / Figma Makeプロンプト |
+| [`design-direction`](./design-direction/) | 記入済みヒアリングシート→デザイン方向性提案書 | デザイン方向性提案書（HTML） |
+| [`web-proposal`](./web-proposal/) | 提案書の組み立て・ファイル生成 | .docx / .pptx / .md |
+
+> **依存関係**：`design-direction` は `branding-strategy` の `references/branding-knowledge.md` を参照します。両スキルを同じ環境にインストールしてください（片方だけだと提案の品質が落ちます）。
 
 ### スキルチェーンのフロー
 
 ```
+branding-strategy ── ブランドの方向性・コア価値を言語化
+  ↓
 ヒアリング
   ↓
 web-strategy ── 戦略・ファネル・サイトマップを設計
   ↓
-wireframe    ── HTMLワイヤーフレーム → Figma Makeプロンプト
+wireframe        ── HTMLワイヤーフレーム → Figma Makeプロンプト
+design-direction ── 記入済みヒアリングシート → デザイン方向性提案書（HTML）
   ↓
 web-proposal ── キックオフ設計提案書（.docx）または受注前提案（.pptx）
 ```
+
+実際の生成サンプルは [`examples/`](./examples/) を参照してください。
 
 ---
 
