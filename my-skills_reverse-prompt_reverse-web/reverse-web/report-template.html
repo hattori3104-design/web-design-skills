@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<!--
+  reverse-web HTMLレポートのテンプレート。
+  {{...}} を分析結果で置き換えて、作業ディレクトリに reverse-web_<サイト名スラッグ>.html として保存する。
+  :root のCSS変数は、分析したサイトのデザイントークン（実測HEX）に差し替える
+  （レポート自体がサイトの空気感をまとうようにする。背景は明るめ・文字は暗めを保ち可読性優先）。
+  セクションの数・構成はSKILL.mdの出力構成に従う。コードブロックは .codeblock 構造を使えばコピー機能が自動で付く。
+-->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>リバースWeb分析｜{{サイト名}}</title>
+<style>
+  :root {
+    /* ↓ 分析したサイトのデザイントークンに差し替える */
+    --bg: #fefefb;
+    --bg-alt: #f5f5ed;
+    --primary: #bf2b1f;      /* アクセント（見出しマーカー・コピーボタン） */
+    --primary-light: #ffd7d7;
+    --secondary: #093355;    /* 濃色（バッジ・タグ・区切り線） */
+    --secondary-light: #34526b;
+    --accent-1: #d9cbb8;
+    --accent-2: #b27d12;
+    --accent-3: #99664c;
+    --text: #333030;
+    --text-muted: #595959;
+    --text-subtle: #808080;
+    --code-bg: #1d2733;
+    --code-text: #e8ecf1;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.85; font-size: 15px;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 48px 24px 96px; }
+
+  header.page-head { border-bottom: 2px solid var(--secondary); padding-bottom: 24px; margin-bottom: 40px; }
+  .page-head .eyebrow {
+    display: inline-block; background: var(--secondary); color: #fff;
+    font-size: 12px; letter-spacing: .12em; padding: 3px 12px; border-radius: 999px; margin-bottom: 12px;
+  }
+  .page-head h1 { font-size: 26px; line-height: 1.4; }
+  .page-head h1 .accent { color: var(--primary); }
+  .page-head .meta { color: var(--text-subtle); font-size: 13px; margin-top: 8px; }
+  .page-head .meta a { color: var(--secondary-light); }
+
+  nav.toc {
+    background: var(--bg-alt); border: 1px dashed var(--text-subtle); border-radius: 8px;
+    padding: 16px 20px; margin-bottom: 48px; font-size: 14px;
+  }
+  nav.toc ol { padding-left: 22px; }
+  nav.toc a { color: var(--secondary); text-decoration: none; }
+  nav.toc a:hover { color: var(--primary); text-decoration: underline; }
+
+  section { margin-bottom: 64px; }
+  h2 {
+    font-size: 21px; display: flex; align-items: center; gap: 10px;
+    margin-bottom: 24px; padding-bottom: 10px; border-bottom: 1px dashed var(--text-subtle);
+  }
+  h2::before { content: ""; width: 12px; height: 12px; background: var(--primary); border-radius: 3px; flex-shrink: 0; }
+  h3 { font-size: 16.5px; margin: 32px 0 12px; color: var(--secondary); }
+  h3 .badge {
+    display: inline-block; font-size: 11.5px; font-weight: 600; color: #fff;
+    background: var(--secondary-light); border-radius: 999px; padding: 2px 10px; margin-right: 8px; vertical-align: 2px;
+  }
+  p { margin-bottom: 12px; }
+  ul { padding-left: 22px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; }
+  strong { color: var(--secondary); }
+  code { background: var(--bg-alt); border-radius: 4px; padding: 1px 6px; font-size: 13px; }
+  .note { background: var(--primary-light); border-radius: 6px; padding: 10px 16px; font-size: 13.5px; margin-bottom: 20px; }
+
+  .layer { background: #fff; border: 1px dashed var(--text-subtle); border-radius: 10px; padding: 20px 24px; margin-bottom: 18px; }
+  .layer h3 { margin-top: 0; }
+  .layer .layer-sub { font-size: 12.5px; color: var(--text-subtle); font-weight: normal; margin-left: 6px; }
+
+  .palette { display: flex; flex-wrap: wrap; gap: 10px; margin: 10px 0 14px; }
+  .swatch {
+    display: flex; align-items: center; gap: 8px; background: var(--bg-alt);
+    border-radius: 999px; padding: 4px 14px 4px 6px; font-size: 12.5px;
+    font-family: "Inter", Menlo, monospace;
+  }
+  .swatch i { width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); flex-shrink: 0; }
+
+  .mood-list { list-style: none; padding: 0; margin-top: 10px; }
+  .mood-list li { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; font-size: 13px; color: var(--text-muted); }
+  .mood-list .term {
+    background: var(--secondary); color: #fff; font-size: 12.5px; font-family: "Inter", sans-serif;
+    padding: 3px 14px; border-radius: 999px; white-space: nowrap; flex-shrink: 0;
+  }
+  .mood-list.motion .term { background: var(--accent-3); }
+  @media (max-width: 640px) { .mood-list li { flex-direction: column; gap: 2px; } }
+
+  .codeblock { position: relative; margin: 14px 0 28px; }
+  .codeblock pre {
+    background: var(--code-bg); color: var(--code-text); border-radius: 10px;
+    padding: 44px 20px 20px; overflow-x: auto; font-size: 12.8px; line-height: 1.7;
+    font-family: Menlo, Consolas, "Courier New", monospace; white-space: pre-wrap; word-break: break-word;
+  }
+  .codeblock .copy-btn {
+    position: absolute; top: 10px; right: 10px; background: var(--primary); color: #fff;
+    border: none; border-radius: 999px; font-size: 12.5px; font-family: inherit;
+    padding: 5px 16px; cursor: pointer; transition: filter .3s ease, transform .15s ease;
+  }
+  .codeblock .copy-btn:hover { filter: brightness(.85); }
+  .codeblock .copy-btn:active { transform: scale(.96); }
+  .codeblock .copy-btn.copied { background: #2e7d4f; }
+  .codeblock .label {
+    position: absolute; top: 12px; left: 16px; font-size: 11.5px; letter-spacing: .08em;
+    color: #9db2c7; font-family: "Inter", sans-serif;
+  }
+
+  .qa { border-left: 4px solid var(--accent-2); background: #fff; border-radius: 0 10px 10px 0; padding: 16px 20px; margin-bottom: 16px; }
+  .qa h4 { color: var(--accent-3); font-size: 15px; margin-bottom: 8px; }
+
+  footer { border-top: 2px solid var(--secondary); padding-top: 20px; color: var(--text-subtle); font-size: 12.5px; }
+  @media (max-width: 640px) {
+    .container { padding: 28px 16px 64px; }
+    .page-head h1 { font-size: 21px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="page-head">
+  <span class="eyebrow">REVERSE WEB PROMPT</span>
+  <h1>リバースWeb分析レポート<br><span class="accent">{{サイト名}}</span></h1>
+  <p class="meta">対象：<a href="{{URL}}" target="_blank" rel="noopener">{{URL}}</a>｜分析方法：{{ブラウザ実地観察＋ソースコード解析 など}}｜{{分析日 YYYY.MM.DD}}</p>
+</header>
+
+<nav class="toc">
+  <ol>
+    <li><a href="#analysis">サイト分析（6層構造）</a></li>
+    <li><a href="#prompts">再現プロンプト（コピー可）</a></li>
+    <li><a href="#tips">再現のコツ</a></li>
+    <li><a href="#advice">プロンプトの活用アドバイス</a></li>
+    <li><a href="#training">デザイン分析トレーニング</a></li>
+  </ol>
+</nav>
+
+<section id="analysis">
+  <h2>1. サイト分析（6層構造）</h2>
+
+  <div class="layer">
+    <h3>① 役割（Role）<span class="layer-sub">— このサイトは何か</span></h3>
+    <ul>{{箇条書き}}</ul>
+  </div>
+
+  <div class="layer">
+    <h3>② 入力理解（Input）<span class="layer-sub">— 画面の要素分解</span></h3>
+    <ul>{{箇条書き}}</ul>
+  </div>
+
+  <div class="layer">
+    <h3>③ デザイン設計（Design）<span class="layer-sub">— 構造とレイアウト</span></h3>
+    <ul>{{箇条書き}}</ul>
+  </div>
+
+  <div class="layer">
+    <h3>④ ビジュアル設計（Visual）<span class="layer-sub">— 表層のスタイル（HEXはソース実測値）</span></h3>
+    <div class="palette">
+      <!-- 例：<span class="swatch"><i style="background:#bf2b1f"></i>#bf2b1f 朱（CTA）</span> -->
+      {{スウォッチ}}
+    </div>
+    <ul>{{配色以外の箇条書き（タイポグラフィ・形状言語・装飾）}}</ul>
+    <p><strong>空気感（Mood）</strong> — 再現プロンプトの核：</p>
+    <ul class="mood-list">
+      <!-- 例：<li><span class="term">notebook dashed-border friendliness</span>手帳の破線罫のような親しみやすさ。…</li> -->
+      {{英語修飾子＋日本語説明を5個前後}}
+    </ul>
+  </div>
+
+  <div class="layer">
+    <h3>⑤ モーション設計（Motion）<span class="layer-sub">— {{観測方法の注記（ソース実測／静止画からの推測）}}</span></h3>
+    <ul>{{入場・スクロール連動・ホバー・常時ループ・タイミング・実装の手がかり}}</ul>
+    <p><strong>モーションの空気感</strong>：</p>
+    <ul class="mood-list motion">
+      {{英語修飾子＋日本語説明を2〜4個}}
+    </ul>
+  </div>
+
+  <div class="layer">
+    <h3>⑥ 品質管理（QC）<span class="layer-sub">— 合格基準と崩れやすい点</span></h3>
+    <ul>{{必須チェックリストと崩れやすいポイント}}</ul>
+  </div>
+</section>
+
+<section id="prompts">
+  <h2>2. 再現プロンプト</h2>
+  <p class="note">{{プレースホルダー化の注記}}</p>
+
+  <h3><span class="badge">EN</span>v0 / Lovable / Bolt</h3>
+  <div class="codeblock">
+    <span class="label">PROMPT — ENGLISH</span>
+    <button class="copy-btn" type="button">コピー</button>
+    <pre>{{英語プロンプト}}</pre>
+  </div>
+
+  <h3><span class="badge">JP</span>Claude Code（日本語）</h3>
+  <div class="codeblock">
+    <span class="label">PROMPT — 日本語</span>
+    <button class="copy-btn" type="button">コピー</button>
+    <pre>{{日本語指示文}}</pre>
+  </div>
+
+  <h3><span class="badge">CSS</span>デザイントークン</h3>
+  <div class="codeblock">
+    <span class="label">DESIGN TOKENS — CSS CUSTOM PROPERTIES</span>
+    <button class="copy-btn" type="button">コピー</button>
+    <pre>{{CSSカスタムプロパティ（モーショントークン含む）}}</pre>
+  </div>
+</section>
+
+<section id="tips">
+  <h2>3. 再現のコツ</h2>
+  <ul>{{調整ポイント2〜4個}}</ul>
+</section>
+
+<section id="advice">
+  <h2>4. プロンプトの活用アドバイス</h2>
+  <ul>
+    <li><strong>差し替えポイント</strong>：{{...}}</li>
+    <li><strong>展開パターン</strong>：{{...}}</li>
+    <li><strong>固定すべき語句</strong>：{{...}}</li>
+  </ul>
+</section>
+
+<section id="training">
+  <h2>5. デザイン分析トレーニング</h2>
+  <div class="qa"><h4>Q1. なぜ良く見えるのか</h4><ul>{{...}}</ul></div>
+  <div class="qa"><h4>Q2. どの表現が効いているのか</h4><ul>{{...}}</ul></div>
+  <div class="qa"><h4>Q3. その表現が作る印象</h4><ul>{{...}}</ul></div>
+  <div class="qa"><h4>Q4. 自分のデザインに取り入れるなら</h4><ul>{{...}}</ul></div>
+</section>
+
+<footer>
+  Generated by /reverse-web — リバース・プロンプトエンジニアリング（Webサイト版）
+</footer>
+
+</div>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var pre = btn.parentElement.querySelector('pre');
+    var text = pre.innerText;
+    navigator.clipboard.writeText(text).then(done).catch(function () {
+      var range = document.createRange();
+      range.selectNodeContents(pre);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      document.execCommand('copy');
+      sel.removeAllRanges();
+      done();
+    });
+    function done() {
+      btn.textContent = 'コピーしました ✓';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = 'コピー';
+        btn.classList.remove('copied');
+      }, 2000);
+    }
+  });
+});
+</script>
+</body>
+</html>
