@@ -34,6 +34,8 @@ description: |
 
 ## Step 1: 入力シートを読む
 
+**シートの置き場所**：白紙の雛形は `claude-project/テンプレート/Webヒアリングシート.xlsx`（2026-08-07に `web-design-skills/examples/` から移設）。案件で使うときは雛形を複製し、記入済みのものは案件フォルダの `01_ヒアリング` に置く。**雛形そのものは編集しない。**
+
 ヒアリングシートの形式に応じて読み込む。
 
 - **Googleスプレッドシート**：`Google Drive:read_file_content`（fileId指定）。
