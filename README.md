@@ -5,7 +5,7 @@ Claude（Cowork）で使えるウェブ制作スキル集。
 
 ---
 
-## 収録スキル（5本）
+## 収録スキル（7本）
 
 | スキル | 役割 | 主な出力物 |
 |--------|------|-----------|
@@ -14,6 +14,8 @@ Claude（Cowork）で使えるウェブ制作スキル集。
 | [`wireframe`](./wireframe/) | ワイヤーフレーム・Figma Makeプロンプト生成 | HTMLワイヤー / Figma Makeプロンプト |
 | [`design-direction`](./design-direction/) | 記入済みヒアリングシート→デザイン方向性提案書 | デザイン方向性提案書（HTML） |
 | [`web-proposal`](./web-proposal/) | 提案書の組み立て・ファイル生成 | .docx / .pptx / .md |
+| [`print-design`](./print-design/) | 紙媒体（チラシ・ポスター・DM）の企画〜入稿前チェック | ラフ方向・入稿前チェックリスト |
+| [`recruitment-site`](./recruitment-site/) | 採用サイトの戦略・コンテンツ設計・法令チェック（2026-08-07にClaude Code付属のスキル集からローカル管理へ移設） | 採用サイト戦略・要件定義・RJP設計 |
 
 > **依存関係**：`design-direction` は `branding-strategy` の `references/branding-knowledge.md` を参照します。両スキルを同じ環境にインストールしてください（片方だけだと提案の品質が落ちます）。
 
