@@ -229,11 +229,26 @@
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{transition:none!important;}}
 
   @media print{
+    /* ブラウザは既定で背景色を印刷しない（インク節約のため）。
+       これにより色スウォッチの塗り・コンセプト枠の色帯・トーン診断の
+       丸ポチなど、background-colorで表現している要素が軒並み消える。
+       exact指定で「見た目どおりに背景色も印刷する」よう強制する。 */
+    *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; color-adjust:exact !important; }
     body{background:#fff;}
     .toolbar{display:none;}
     .sheet{box-shadow:none;max-width:none;}
-    .section{break-inside:avoid;}
     body.hide-notes .note{display:none;}
+
+    /* 章まるごとではなく、部品単位で「途中で切らない」を指定する。
+       章単位（.section）で指定すると、章が1ページに収まらない場合に
+       強制的に途中で割られ、かつ短い章は次ページへ丸ごと送られて
+       余白だらけになる。カード・表・スウォッチ単位に分解することで
+       文章は自然に流れ、視覚的なまとまりだけが保護される。 */
+    .rail{break-after:avoid;}
+    .body h2, .body h3{break-after:avoid; break-inside:avoid;}
+    .concept, .sw, .frow, .ref, .kc, .swatches, .fonts,
+    .callout, .scale, table, tr{break-inside:avoid;}
+    .lead{break-after:avoid;}
   }
 </style>
 </head>
